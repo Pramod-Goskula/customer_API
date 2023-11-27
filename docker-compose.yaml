@@ -1,0 +1,31 @@
+
+version: "3"
+services:
+  application:
+    image: china324/customers
+    ports:
+      - "9092:9092"
+    networks:
+      - springboot-customer
+    depends_on:
+      - db
+    volumes:
+      - /data/springboot-customer-app
+
+  db:
+    image: mysql
+    networks:
+      - springboot-customer
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ayurvedaapp
+    volumes:
+      - /data/mysql
+
+networks:
+  springboot-customer:     
+      
+      
+      
